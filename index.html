@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Picture-This</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision/vision_bundle.js" crossorigin="anonymous"
+        type="module"></script>
+</head>
+
+<body id="body">
+
+    <main class="container">
+        <header class="banner">
+            <h1 class="hero-title">Picture This</i></h1>
+
+        </header>
+        <div id="navb" class="navbar">
+
+            <p class="navb-items"><button id="search" class="btn">Search</button> for an image</p>
+            <p class="navb-items"> <button id="saved" class="btn">Saved</button> images</p>
+
+            <dialog id="searchDialog" class="search-dialog">
+                <label for="searchTerm">Search for:</label>
+                <input id="searchTerm" type="text" class="input-field">
+                <div>
+                    <button class="btn" value="cancel" id="cancel">Cancel</button>
+                    <button class="btn" value="default" id="runSearch">Run Search</button>
+                </div>
+            </dialog>
+
+        </div>
+
+        <div id="textResults" class="text-results__area"></div>
+        <div id="results" class="results"></div>
+    </main>
+
+    <script type="module" src="js/main.js"></script>
+</body>
+
+</html>
