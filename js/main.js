@@ -4,7 +4,7 @@ import { FaceDetector, FilesetResolver } from "https://cdn.jsdelivr.net/npm/@med
 document.getElementById('search').addEventListener('click', openSearch);
 document.getElementById('saved').addEventListener('click', openSaved);
 document.getElementById('saved').addEventListener('click', savedHeading);
-document.getElementById('runSearch').addEventListener('click', doSearch);
+document.getElementById('runSearch').addEventListener('click', Search);
 document.getElementById('cancel').addEventListener('click', doCancel);
 
 
@@ -17,7 +17,7 @@ let faceDetector;
 let type = "IMAGE";
 let detections;
 
-async function initializeFaceDetector() {
+async function initFaceDetector() {
     const vision = await FilesetResolver.forVisionTasks(
         "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.0/wasm"
     );
@@ -31,11 +31,11 @@ async function initializeFaceDetector() {
             runningMode: type
         });
 }
-initializeFaceDetector();
+initFaceDetector();
 
 inputField.addEventListener('keydown', (event) => {
     if (event.key === 'Enter') {
-        doSearch();
+        Search();
         searchDialogBox.close();
     }
 })
@@ -49,12 +49,12 @@ function doCancel() {
     searchDialogBox.close();
 }
 
-function doSearch() {
+function Search() {
     searchDialogBox.close();
-    doFetch(inputField.value);
+    Fetch(inputField.value);
 }
 
-function doFetch(inputFieldValue) {
+function Fetch(inputFieldValue) {
     fetch(`https://pixabay.com/api/?key=41019867-9ddff7c508c8cf9a83844d644&q=${inputFieldValue}&image_type=photo&orientation=horizontal&category=people&per_page=30`)
         .then(response => {
             if (!response.ok) {
@@ -125,14 +125,14 @@ function resultsImagePopUp(imageURL, alt) {
         console.log(resultsDialogBox)
         resultsDialogBox.close();
         resultsDialogBox.parentNode.removeChild(resultsDialogBox);
-        saveButton.removeEventListener('click', doSave);
+        saveButton.removeEventListener('click', Save);
     });
 
     let saveButton = document.createElement('button');
     saveButton.setAttribute('class', 'btn');
     saveButton.textContent = 'Save'
     saveButton.addEventListener('click', () => {
-        doSave(imageURL, resultsDialogBox);
+        Save(imageURL, resultsDialogBox);
     });
 
     let buttonDiv = document.createElement('div');
@@ -151,7 +151,7 @@ function createImagePopUp() {
     return newDialogBox;
 }
 
-function doSave(imageURL, resultsDialogBox) {
+function Save(imageURL, resultsDialogBox) {
     caches
         .open('Saved-Images')
         .then(async (cache) => {
